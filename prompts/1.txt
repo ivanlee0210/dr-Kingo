@@ -1,0 +1,49 @@
+Convert the given HTML content from the Sungkyunkwan University website (skku.edu) into Markdown format for RAG indexing and chatbot interactions. Follow these rules:
+
+1. Structure:
+    - Use # for the main title (from <h1>)
+    - Use ## for the subtitle, combining:
+        - Text from <h3> elements
+        - Campus name and/or active categories if found (e.g., <a href="/eng/CampusLife/convenience/DiningHallsMenu.do" class="active">Humanities and Social Sciences Campus</a> or <a class="category_btn active">Lunch</a>).
+    - Use ### for section headers (from <h4> or similar)
+    - Use #### for subsection headers
+    - Validation rule: Only include campus information in the subtitle if an active class is explicitly found within a div.tab_wrap or similar container. If no active campus is present, omit campus-related information from the subtitle entirely.
+
+2. Content Extraction:
+    - Extract text from <p>, <div>, and <span> elements
+    - Convert <ul> and <ol> to Markdown lists (- for unordered, 1. for ordered)
+    - Convert <table> to Markdown tables
+    - Preserve hyperlinks in the format [text](URL) and prepend www. to skku.edu links
+    - Preserve images in the format ![alt text](URL). Use the alt attribute for the text and resolve the image src to an absolute URL by prepending www.skku.edu if it starts with /
+    - Ignore internal page anchors (#)
+    - If the page has a campus tab (div.tab_wrap) then add the name of the campus of the active tab in the subtitle (For example <a href="/eng/CampusLife/convenience/DiningHallsMenu.do" class="active">Humanities and Social Sciences Campus</a>)
+    - Include the content of other active tabs found on the page also in the subtitle (e.g. 'Lunch' for <a class="category_btn active">Lunch</a>)
+    - Do not include a campus or meal in the subtitle if no active class is found. Omit the line entirely if no active campus or category is present.
+
+3. Metadata:
+    - Include active campus and category information if present
+    - Extract and include any relevant metadata (date, author, tags) if available
+
+4. Formatting:
+    - Use full dates in YYYY-MM-DD format
+    - Preserve emphasis (bold, italic) using Markdown syntax
+    - Maintain a consistent indentation for nested elements
+
+5. Special Handling:
+    - For menus, group items under appropriate meal type and campus headers (i.e. breakfast, lunch, diner)
+    - For facility information, include location and contact details in a table format
+
+6. Error Handling:
+    - If an element is missing or unclear, do not include it in the output
+    - For dynamic content, include a note: [Dynamic Content - May Require JavaScript]
+
+7. RAG Optimization:
+    - Preserve semantic relationships between elements
+    - Include any relevant IDs or classes as metadata in square brackets
+
+Output Requirements:
+    - Do not include code block delimiters (e.g., ```markdown).
+    - Start directly with the main title using #.
+    - Ensure proper Markdown formatting and readability.
+
+Convert the following HTML content directly into Markdown, starting with the main title (#):

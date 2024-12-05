@@ -62,9 +62,11 @@ class skkuMd(Base):
 
     url: str = Column(String, primary_key=True)
     markdown: str = Column(String)
-    usage: str = Column(String)
+    total_tokens: int = Column(Integer)
     model: str = Column(String)
+    usage: str = Column(String)
     html_wrap_hash: str = Column(String)
+    md_wrap_hash: str = Column(String)
     created: int = Column(BigInteger)
     generation_date: datetime = Column(DateTime, default=datetime.utcnow)
 
