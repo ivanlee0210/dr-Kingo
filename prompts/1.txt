@@ -25,7 +25,7 @@ Convert the given HTML content from the Sungkyunkwan University website (skku.ed
     - Extract and include any relevant metadata (date, author, tags) if available
 
 4. Formatting:
-    - Use full dates in YYYY-MM-DD format
+    - Transform all dates to a YYYY-MM-DD format. For date ranges, convert both the start and end dates into YYYY-MM-DD, inferring the year from the main academic schedule heading. For example, if the heading states ## Academic Schedule - 2025 [ Spring ], then a date originally listed as March 4 - 7 should become 2025-03-04 - 2025-03-07
     - Preserve emphasis (bold, italic) using Markdown syntax
     - Maintain a consistent indentation for nested elements
 
@@ -36,6 +36,15 @@ Convert the given HTML content from the Sungkyunkwan University website (skku.ed
 6. Error Handling:
     - If an element is missing or unclear, do not include it in the output
     - For dynamic content, include a note: [Dynamic Content - May Require JavaScript]
+
+7. Date Handling
+	- If the academic year and semester/season (e.g. “2025 [ Spring ]”) are given in a heading, use this year as the default year for all dates throughout the table.
+	- Combine month and day fields into a single date field in the format YYYY-MM-DD.
+	- For date ranges, apply the same formatting to both start and end dates, and separate them with a hyphen (e.g., 2025-03-04 - 2025-03-07).
+	- If the original content only specifies month and day, prepend the determined year (from the heading or context) to each date.
+	- If no year is explicitly stated in the text, infer it from the context of the academic schedule heading or omit the year.
+	- Table Content:
+
 
 7. RAG Optimization:
     - Preserve semantic relationships between elements
