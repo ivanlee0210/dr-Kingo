@@ -134,4 +134,3 @@ if __name__ == "__main__":
     print("Starting download...")
     results = download_all()
     logger.info("Downloader module run completed.")
-    print(f"Downloading complete: {counts}")
